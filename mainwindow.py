@@ -77,6 +77,10 @@ class MainWindow(QMainWindow):
         self.htmlDocHead = htmlFile.read()
         htmlFile.close()
 
+        htmlFile = open(quarkSettings.mid_html_template_file , "r")   #get the head of the HTML template document
+        self.htmlDocMid = htmlFile.read()
+        htmlFile.close()
+
         htmlFile = open(quarkSettings.end_html_template_file, "r")      #get the tail of the HTML template document
         self.htmlDocTail = htmlFile.read()
         htmlFile.close()
@@ -300,7 +304,7 @@ class MainWindow(QMainWindow):
         """Converts note text/markdown to an html document"""
 
         #create an HTML document using the predefined head, the HTML form of the note, and the predefined tail
-        htmlDoc = self.htmlDocHead + self.mdParser.convert(noteMarkdown) + self.htmlDocTail
+        htmlDoc = self.htmlDocHead + quarkSettings.preview_theme_file + self.htmlDocMid + self.mdParser.convert(noteMarkdown) + self.htmlDocTail
 
         return htmlDoc
 
